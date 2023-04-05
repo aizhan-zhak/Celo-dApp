@@ -1,12 +1,25 @@
-module.exports = async ({ getNamedAccounts, deployments }) => {
-  const { deploy } = deployments;
-  const { deployer } = await getNamedAccounts();
+// We require the Hardhat Runtime Environment explicitly here. This is optional
+// but useful for running the script in a standalone fashion through `node <script>`.
+//
+// You can also run a script with `npx hardhat run <script>`. If you do that, Hardhat
+// will compile your contracts, add the Hardhat Runtime Environment's members to the
+// global scope, and execute the script.
+const hre = require("hardhat");
 
-  await deploy("CrowdFund.sol", {
-    from: deployer,
-    //args: [ "Hello", ethers.utils.parseEther("1.5") ],
-    log: true,
-  }); 
+async function main() {
+  const TargetContract = await hre.ethers.getContractFactory("Crowdfund");
+  const deployTarget = await TargetContract.deploy();
 
+  await deployTarget.deployed();
 
-  module.exports.tags = ["CrowdFund.sol"];
+  console.log(
+    `Contract Deployed at ${deployTarget.address}`
+  );
+}
+
+// We recommend this pattern to be able to use async/await everywhere
+// and properly handle errors.
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});
