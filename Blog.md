@@ -22,7 +22,11 @@ Our Crowdfunding dApp enables project creators to easily create a funding campai
 Our dApp is built using Solidity, a programming language used to create smart contracts on the Ethereum blockchain. 
 When coding the dApp, we made several considerations to optimize gas usage and ensure the efficient execution of the smart contracts.
 The Crowdfund smart contract, built on Solidity version 0.8.17, employs the OpenZeppelin SafeMath library to prevent potential integer overflow errors that could compromise the integrity of the contract. The library is a highly regarded solution within the Ethereum ecosystem for secure arithmetic operations on unsigned integers in Solidity. The SafeMath library is imported and utilized within the contract for all arithmetic operations, from addition to division, demonstrating a commitment to safeguarding the contract against potential security threats. The use of SafeMath instills investor confidence that the contract's computations are accurate and secure, two essential factors in any financial application.
-Using the Hardhat development environment, we successfully deployed our smart contract, which resulted in the acquisition of a contract address (0x9e7EC5A5229e41eC97d068E3b0fbbea06d4089A9). This address can now be utilized to perform interactions with our contract on the Ethereum blockchain.
+Using the Hardhat development environment, we successfully deployed our smart contract, which resulted in the acquisition of a contract address (0x7b00830e338Fb65ae392b54c0052F85768E96f08). This address can now be utilized to perform interactions with our contract on the Ethereum blockchain.
+``` 
+npx hardhat run deploy/00-deploy.js --network alfajores
+```
+https://alfajores.celoscan.io/address/0x7b00830e338fb65ae392b54c0052f85768e96f08
 
 ### Project Structure:
 Our project consists of two smart contracts: the Crowdfund contract and the Project contract. The Crowdfund contract is responsible for managing all the projects on the platform, including starting new projects and returning all the active projects. The Project contract represents individual funding campaigns and is responsible for accepting contributions, tracking the total raised amount, and managing the project's state. 
