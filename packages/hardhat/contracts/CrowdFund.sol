@@ -25,10 +25,10 @@ contract Crowdfund {
 
   function startProject(
     IERC20 cUSDToken,
-    string calldata creatorName,
-    string calldata title,
-    string calldata description,
-    string calldata imageLink, 
+    string memory creatorName,
+    string memory title,
+    string memory description,
+    string memory imageLink, 
     uint durationInDays, 
     uint amountToRaise
   ) external {
@@ -47,7 +47,7 @@ contract Crowdfund {
     );
   }
 
-  function returnProjects() external view returns(Project[] memory) {
+  function returnProjects() public view returns(Project[] memory) {
     return projects; 
   }
 }
@@ -114,10 +114,10 @@ contract Project {
 
     contributions[msg.sender] = contributions[msg.sender].add(amount);
     currentBalance = currentBalance.add(amount);
-    totalRaised = currentBalance; 
     emit ReceivedFunding(msg.sender, amount, currentBalance);
     checkIfFundingExpired();
   }
+
 
   // check project state
   function checkIfFundingExpired() public {
@@ -133,16 +133,16 @@ contract Project {
     currentBalance = 0; 
 
     if (cUSDToken.transfer(msg.sender, totalRaised)) {
-      emit CreatorPaid(creator);
-      state = ProjectState.Successful;
-      return true; 
+        emit CreatorPaid(creator);
+        state = ProjectState.Successful;
+        return true; 
     } else { 
-      currentBalance = totalRaised; 
-      state = ProjectState.Successful;
+        state = ProjectState.Successful;
     }
 
     return false; 
   }
+
 
   function getDetails() public view returns 
   (
